@@ -2,7 +2,52 @@
   <div></div>
   <div>
     <div>
-      <img src="data:image/gif;base64,{{logreg_rfe_confusion_matrix_base64}}" alt="">
+      <h2>Logistic Regression model : GridSearch</h2>
+      <h3>Confusion Matrix</h3>
+      <img src="data:image/png;base64,{{logreg_grid_confusion_matrix_base64}}" alt="">
+      <h3>Accuracy</h3>
+      <p>{{logreg_grid_accuracy}}</p>
+    </div>
+    <div>
+      <h2>Logistic Regression model : RFE</h2>
+      <h3>Confusion Matrix</h3>
+      <img src="data:image/png;base64,{{logreg_rfe_confusion_matrix_base64}}" alt="">
+      <h3>Accuracy</h3>
+      <p>{{logreg_rfe_accuracy}}</p>
+    </div>
+    <div>
+      <h2>KNN</h2>
+      <h3>Confusion Matrix</h3>
+      <img src="data:image/png;base64,{{knn_confusion_matrix_base64}}" alt="">
+      <h3>mae</h3>
+      <p>{{knn_mae}}</p>
+      <h3>mse</h3>
+      <p>{{knn_mse}}</p>
+      <h3>rmse</h3>
+      <p>{{knn_rmse}}</p>
+      <h3>score</h3>
+      <p>{{knn_score}}</p>
+    </div>
+    <div>
+      <h2>Decision tree</h2>
+      <h3>Confusion Matrix</h3>
+      <img src="data:image/png;base64,{{dt_confusion_matrix_base64}}" alt="">
+      <h3>score</h3>
+      <p>{{dt_score}}</p>
+    </div>
+    <div>
+      <h2>Gradient boosting</h2>
+      <h3>Confusion Matrix</h3>
+      <img src="data:image/png;base64,{{gb_confusion_matrix_base64}}" alt="">
+      <h3>score</h3>
+      <p>{{gb_score}}</p>
+    </div>
+    <div>
+      <h2>XG boost</h2>
+      <h3>Confusion Matrix</h3>
+      <img src="data:image/png;base64,{{xgb_confusion_matrix_base64}}" alt="">
+      <h3>score</h3>
+      <p>{{xgb_score}}</p>
     </div>
   </div>
 </div>
