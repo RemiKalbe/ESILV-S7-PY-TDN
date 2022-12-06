@@ -7,13 +7,19 @@
       <img src="data:image/png;base64,{{logreg_grid_confusion_matrix_base64}}" alt="">
       <h3>Accuracy</h3>
       <p>{{logreg_grid_accuracy}}</p>
-    </div>
+      <a href="{{logreg_grid_prediction_url}}" download>
+        <button href="{{logreg_grid_prediction_url}}" download="logreg_grid_predictions.csv">Download prediction of this model</button>
+      </a>
+      </div>
     <div>
       <h2>Logistic Regression model : RFE</h2>
       <h3>Confusion Matrix</h3>
       <img src="data:image/png;base64,{{logreg_rfe_confusion_matrix_base64}}" alt="">
       <h3>Accuracy</h3>
       <p>{{logreg_rfe_accuracy}}</p>
+      <a href="{{logreg_rfe_prediction_url}}" download>
+        <button href="{{logreg_rfe_prediction_url}}" download="logreg_rfe_predictions.csv">Download prediction of this model</button>
+      </a>
     </div>
     <div>
       <h2>KNN</h2>
@@ -27,6 +33,9 @@
       <p>{{knn_rmse}}</p>
       <h3>score</h3>
       <p>{{knn_score}}</p>
+      <a href="{{knn_prediction_url}}" download>
+        <button href="{{knn_prediction_url}}" download="knn_predictions.csv">Download prediction of this model</button>
+      </a>
     </div>
     <div>
       <h2>Decision tree</h2>
@@ -34,6 +43,9 @@
       <img src="data:image/png;base64,{{dt_confusion_matrix_base64}}" alt="">
       <h3>score</h3>
       <p>{{dt_score}}</p>
+      <a href="{{dt_prediction_url}}" download>
+        <button href="{{dt_prediction_url}}" download="dt_predictions.csv">Download prediction of this model</button>
+      </a>
     </div>
     <div>
       <h2>Gradient boosting</h2>
@@ -41,6 +53,9 @@
       <img src="data:image/png;base64,{{gb_confusion_matrix_base64}}" alt="">
       <h3>score</h3>
       <p>{{gb_score}}</p>
+      <a href="{{gb_prediction_url}}" download>
+        <button href="{{gb_prediction_url}}" download="gb_predictions.csv">Download prediction of this model</button>
+      </a>
     </div>
     <div>
       <h2>XG boost</h2>
@@ -48,6 +63,9 @@
       <img src="data:image/png;base64,{{xgb_confusion_matrix_base64}}" alt="">
       <h3>score</h3>
       <p>{{xgb_score}}</p>
-    </div>
+      <a href="{{xgb_prediction_url}}" download>
+        <button href="{{xgb_prediction_url}}" download="xgb_predictions.csv">Download prediction of this model</button>
+      </a>
+      </div>
   </div>
 </div>

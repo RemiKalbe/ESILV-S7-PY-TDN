@@ -6,7 +6,7 @@ from models.gradient_boosting import GradientBoostingModel
 import numpy as np
 from uuid import uuid4
 from werkzeug.utils import secure_filename
-from flask import Flask, flash, request, redirect, url_for, render_template
+from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory
 import os
 import matplotlib
 matplotlib.use('Agg')
@@ -16,6 +16,7 @@ app = Flask(__name__)
 app.secret_key = 'super secret key'
 
 UPLOAD_FOLDER = '/Users/remikalbe/Git/github.com/ESILV-S7-PY-TDN/api/uploads'
+RESULT_FOLDER = '/Users/remikalbe/Git/github.com/ESILV-S7-PY-TDN/api/results'
 ALLOWED_EXTENSIONS = {'csv'}
 
 
@@ -97,6 +98,29 @@ def result(upload_id):
     model_xg_boost_predictions = model_xg_boost.predict()
     model_gradient_boosting_predictions = model_gradient_boosting.predict()
 
+    # Create the result folder
+    os.makedirs(os.path.join(
+        RESULT_FOLDER, upload_id), exist_ok=True)
+    # Save each model's predictions
+    logreg_grid_prediction_url = f'{RESULT_FOLDER}/{upload_id}/logreg_grid_predictions.csv'
+    np.savetxt(logreg_grid_prediction_url,
+               model_logreg_rfe_predictions, delimiter=',')
+    logreg_rfe_prediction_url = f'{RESULT_FOLDER}/{upload_id}/logreg_rfe_predictions.csv'
+    np.savetxt(logreg_rfe_prediction_url,
+               model_logreg_grid_predictions, delimiter=',')
+    knn_prediction_url = f'{RESULT_FOLDER}/{upload_id}/knn_predictions.csv'
+    np.savetxt(knn_prediction_url,
+               model_knn_predictions, delimiter=',')
+    decision_tree_prediction_url = f'{RESULT_FOLDER}/{upload_id}/decision_tree_predictions.csv'
+    np.savetxt(decision_tree_prediction_url,
+               model_decision_tree_predictions, delimiter=',')
+    xg_boost_prediction_url = f'{RESULT_FOLDER}/{upload_id}/xg_boost_predictions.csv'
+    np.savetxt(xg_boost_prediction_url,
+               model_xg_boost_predictions, delimiter=',')
+    gradient_boosting_prediction_url = f'{RESULT_FOLDER}/{upload_id}/gradient_boosting_predictions.csv'
+    np.savetxt(gradient_boosting_prediction_url,
+               model_gradient_boosting_predictions, delimiter=',')
+
     # Get the accuracy
     model_logreg_rfe_accuracy = model_logreg_rfe.accuracy()
     model_logreg_grid_accuracy = model_logreg_grid.accuracy()
@@ -140,7 +164,20 @@ def result(upload_id):
                            dt_score=model_decision_tree_score,
                            xgb_score=model_xg_boost_score,
                            gb_score=model_gradient_boosting_score,
+                           logreg_grid_prediction_url=f'/api/uploads/{upload_id}/logreg_grid',
+                           logreg_rfe_prediction_url=f'/api/uploads/{upload_id}/logreg_rfe',
+                           knn_prediction_url=f'/api/uploads/{upload_id}/knn',
+                           dt_prediction_url=f'/api/uploads/{upload_id}/decision_tree',
+                           xgb_prediction_url=f'/api/uploads/{upload_id}/xg_boost',
+                           gb_prediction_url=f'/api/uploads/{upload_id}/gradient_boosting',
                            )
+
+
+@app.route('/api/uploads/<upload_id>/<model>', methods=['GET'])
+def download(upload_id, model):
+    model = f'{model}_predictions.csv'
+    path = os.path.join(RESULT_FOLDER, upload_id)
+    return send_from_directory(path, model)
 
 
 if __name__ == "__main__":

@@ -130,3 +130,4 @@ dmypy.json
 
 # API Uploads
 api/uploads
+api/results
