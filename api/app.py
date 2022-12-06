@@ -3,6 +3,7 @@ from models.knn import KNNModel
 from models.decision_tree import DecisionTreeModel
 from models.xg_boost import XGBoostModel
 from models.gradient_boosting import GradientBoostingModel
+from models.random_forest import RandomForestModel
 import numpy as np
 from uuid import uuid4
 from werkzeug.utils import secure_filename
@@ -81,6 +82,7 @@ def result(upload_id):
     model_xg_boost = XGBoostModel(X_train, y_train, X_test, y_test)
     model_gradient_boosting = GradientBoostingModel(
         X_train, y_train, X_test, y_test)
+    model_random_forest = RandomForestModel(X_train, y_train, X_test, y_test)
 
     # Get the results
     model_logreg_rfe_score = model_logreg_rfe.score()
@@ -89,6 +91,7 @@ def result(upload_id):
     model_decision_tree_score = model_decision_tree.score()
     model_xg_boost_score = model_xg_boost.score()
     model_gradient_boosting_score = model_gradient_boosting.score()
+    model_random_forest_score = model_random_forest.score()
 
     # Get the predictions
     model_logreg_rfe_predictions = model_logreg_rfe.predict()
@@ -97,6 +100,7 @@ def result(upload_id):
     model_decision_tree_predictions = model_decision_tree.predict()
     model_xg_boost_predictions = model_xg_boost.predict()
     model_gradient_boosting_predictions = model_gradient_boosting.predict()
+    model_random_forest_predictions = model_random_forest.predict()
 
     # Create the result folder
     os.makedirs(os.path.join(
@@ -120,6 +124,9 @@ def result(upload_id):
     gradient_boosting_prediction_url = f'{RESULT_FOLDER}/{upload_id}/gradient_boosting_predictions.csv'
     np.savetxt(gradient_boosting_prediction_url,
                model_gradient_boosting_predictions, delimiter=',')
+    random_forest_prediction_url = f'{RESULT_FOLDER}/{upload_id}/random_forest_predictions.csv'
+    np.savetxt(random_forest_prediction_url,
+               model_random_forest_predictions, delimiter=',')
 
     # Get the accuracy
     model_logreg_rfe_accuracy = model_logreg_rfe.accuracy()
@@ -128,6 +135,7 @@ def result(upload_id):
     model_decision_tree_accuracy = model_decision_tree.accuracy()
     model_xg_boost_accuracy = model_xg_boost.accuracy()
     model_gradient_boosting_accuracy = model_gradient_boosting.accuracy()
+    model_random_forest_accuracy = model_random_forest.accuracy()
 
     # Get the confusion matrix
     model_logreg_rfe_confusion_matrix = model_logreg_rfe.confusion_matrix_base64()
@@ -136,6 +144,7 @@ def result(upload_id):
     model_decision_tree_confusion_matrix = model_decision_tree.confusion_matrix_base64()
     model_xg_boost_confusion_matrix = model_xg_boost.confusion_matrix_base64()
     model_gradient_boosting_confusion_matrix = model_gradient_boosting.confusion_matrix_base64()
+    model_random_forest_confusion_matrix = model_random_forest.confusion_matrix_base64()
 
     # Knn specific
     knn_mae = model_knn.mae()
@@ -155,6 +164,8 @@ def result(upload_id):
                                'utf8'),
                            gb_confusion_matrix_base64=model_gradient_boosting_confusion_matrix.decode(
                                'utf8'),
+                           rdmf_confusion_matrix_base64=model_random_forest_confusion_matrix.decode(
+                               'utf8'),
                            logreg_grid_accuracy=model_logreg_grid_accuracy,
                            logreg_rfe_accuracy=model_logreg_rfe_accuracy,
                            knn_mae=knn_mae,
@@ -164,12 +175,14 @@ def result(upload_id):
                            dt_score=model_decision_tree_score,
                            xgb_score=model_xg_boost_score,
                            gb_score=model_gradient_boosting_score,
+                           rdmf_score=model_random_forest_score,
                            logreg_grid_prediction_url=f'/api/uploads/{upload_id}/logreg_grid',
                            logreg_rfe_prediction_url=f'/api/uploads/{upload_id}/logreg_rfe',
                            knn_prediction_url=f'/api/uploads/{upload_id}/knn',
                            dt_prediction_url=f'/api/uploads/{upload_id}/decision_tree',
                            xgb_prediction_url=f'/api/uploads/{upload_id}/xg_boost',
                            gb_prediction_url=f'/api/uploads/{upload_id}/gradient_boosting',
+                           rdmf_prediction_url=f'/api/uploads/{upload_id}/random_forest',
                            )
 
 

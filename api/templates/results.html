@@ -67,5 +67,15 @@
         <button href="{{xgb_prediction_url}}" download="xgb_predictions.csv">Download prediction of this model</button>
       </a>
       </div>
+      <div>
+        <h2>Random forest</h2>
+        <h3>Confusion Matrix</h3>
+        <img src="data:image/png;base64,{{rdmf_confusion_matrix_base64}}" alt="">
+        <h3>score</h3>
+        <p>{{rdmf_score}}</p>
+        <a href="{{rdmf_prediction_url}}" download>
+          <button href="{{rdmf_prediction_url}}" download="rdmf_predictions.csv">Download prediction of this model</button>
+        </a>
+        </div>
   </div>
 </div>
