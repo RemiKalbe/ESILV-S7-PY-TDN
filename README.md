@@ -2,6 +2,8 @@
 
 Chloé DEPERTHES, Victoria GAUTHIER, Rémi KALBE
 
+The notebook can also be viewed at https://datalore.jetbrains.com/view/notebook/MqoHBhwIn1dqWNB3LCQejn
+
 ## Introduction
 
 Using the Spambase dataset, the project's objective is to construct a spam filter. 4601 emails, 57 characteristics, and a label are all included in this dataset (spam or not spam). The information may be found on the UCI Machine Learning Repository at https://archive.ics.uci.edu/ml/datasets/Spambase.
